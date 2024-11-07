@@ -21,6 +21,7 @@ const mockUserModel = {
   find: jest.fn().mockResolvedValue([mockUser]),
   create: jest.fn().mockResolvedValue(mockUser),
   findOneAndUpdate: jest.fn().mockResolvedValue(updatedMockUser),
+  findByIdAndDelete: jest.fn().mockResolvedValue(mockUser),
 };
 
 mockUserModel.create = jest.fn().mockResolvedValue(mockUser);
@@ -70,5 +71,14 @@ describe('UsersService', () => {
       updateUserDto,
       { new: true },
     );
+  });
+
+  it('should delete a user', async () => {
+    const deleteUser = await usersService.delete(mockUser._id);
+
+    expect(deleteUser).toEqual(mockUser);
+    expect(mockUserModel.findByIdAndDelete).toHaveBeenCalledWith({
+      _id: mockUser._id,
+    });
   });
 });
