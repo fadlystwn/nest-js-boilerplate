@@ -1,31 +1,6 @@
-version: '3.8'
+version: '3'
 services:
   app:
     build: .
-    container_name: roompi
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongo
     environment:
-      MONGO_URI: mongodb://mongo:27017/nest
-    networks:
-      - nest-network
-
-  mongo:
-    image: mongo:5
-    container_name: mongo-db
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - nest-network
-
-networks:
-  nest-network:
-    driver: bridge
-
-volumes:
-  mongo-data:
-    driver: local
+      - NODE_ENV=${NODE_ENV:-development}
