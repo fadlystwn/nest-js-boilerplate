@@ -74,11 +74,9 @@ describe('UsersService', () => {
   });
 
   it('should delete a user', async () => {
-    const deleteUser = await usersService.delete(mockUser._id);
+    const deletedUser = await usersService.delete(mockUser._id);
 
-    expect(deleteUser).toEqual(mockUser);
-    expect(mockUserModel.findByIdAndDelete).toHaveBeenCalledWith({
-      _id: mockUser._id,
-    });
+    expect(deletedUser).toEqual(mockUser);
+    expect(mockUserModel.findByIdAndDelete).toHaveBeenCalledWith(mockUser._id);
   });
 });
