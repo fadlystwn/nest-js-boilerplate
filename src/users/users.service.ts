@@ -30,6 +30,14 @@ export class UsersService {
     }
   }
 
+  async findOne(username: string): Promise<UserDocument> {
+    try {
+      return await this.userModel.findOne({ username });
+    } catch (error) {
+      throw new BadRequestException('Error fetching users: ' + error.message);
+    }
+  }
+
   async update(
     id: string,
     updateUserDto: UpdateUserDto,
